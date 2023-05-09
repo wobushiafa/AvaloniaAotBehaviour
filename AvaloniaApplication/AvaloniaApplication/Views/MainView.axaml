@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AvaloniaApplication.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:b="clr-namespace:AvaloniaApplication.Behaviors"
+             x:Class="AvaloniaApplication.Views.MainView"
+             x:DataType="vm:MainViewModel">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Grid>
+        <ListBox Name="ListBox">
+            <ListBoxItem Content="123"></ListBoxItem>
+            <ListBoxItem Content="234"></ListBoxItem>
+            <ListBoxItem Content="345"></ListBoxItem>
+            <ListBoxItem Content="456"></ListBoxItem>
+            <Interaction.Behaviors>
+                <b:SelectionChangedBehavior Command="{Binding SelectionChangedCommand}"></b:SelectionChangedBehavior>
+            </Interaction.Behaviors>
+        </ListBox>
+        <TextBlock Name="TextBlock"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Padding="20"
+                   Background="Azure"
+                   Foreground="Black">
+            pointermove me to execute command
+        </TextBlock>
+
+        <Button Width="120" Height="40">
+            <Interaction.Behaviors>
+                <b:PointerMovedBehavior SourceObject="{Binding #TextBlock}"
+                                        Command="{Binding PointerMovedCommand}"
+                                        PassEventArgsToCommand="True">
+                </b:PointerMovedBehavior>
+            </Interaction.Behaviors>
+            <!-- <Interaction.Behaviors> -->
+            <!--     <b:SelectionChangedBehavior SourceObject="{Binding #ListBox}" Command="{Binding SelectionChangedCommand}" ></b:SelectionChangedBehavior> -->
+            <!-- </Interaction.Behaviors> -->
+        </Button>
+    </Grid>
+</UserControl>
